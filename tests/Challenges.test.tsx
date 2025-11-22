@@ -74,6 +74,10 @@ describe("Challenge1: useMemo optimization", () => {
 
     const numberInput = screen.getByLabelText(/Input number/i);
 
+    const unrelatedButton = screen.getByRole("button", {
+      name: /Increment unrelated counter/i,
+    });
+
     expect(sumOfSquares).toHaveBeenCalledTimes(1);
     expect(sumOfSquares).toHaveBeenCalledWith(10);
     expect(sumOfSquares).toHaveReturnedWith(385);
@@ -87,6 +91,9 @@ describe("Challenge1: useMemo optimization", () => {
     expect(sumOfSquares).toHaveBeenCalledTimes(3);
     expect(sumOfSquares).toHaveBeenCalledWith(7);
     expect(sumOfSquares).toHaveReturnedWith(140);
+
+    fireEvent.click(unrelatedButton);
+    expect(sumOfSquares).toHaveBeenCalledTimes(3);
   });
 
   test("(15pts) Updating unrelated state does NOT rerun heavy computation", () => {
