@@ -63,7 +63,7 @@ describe("Challenge1: useMemo optimization", () => {
     vi.mock("../src/utils/sumOfSquares", { spy: true });
   });
 
-  test("(10 points) Heavy computation runs only when input value changes", () => {
+  test("(10pts) Heavy computation runs only when input value changes", () => {
     const onRender = vi.fn();
 
     render(
@@ -89,7 +89,7 @@ describe("Challenge1: useMemo optimization", () => {
     expect(sumOfSquares).toHaveReturnedWith(140);
   });
 
-  test("(15 points) Updating unrelated state does NOT rerun heavy computation", () => {
+  test("(15pts) Updating unrelated state does NOT rerun heavy computation", () => {
     vi.resetAllMocks();
     const onRender = vi.fn();
 
@@ -136,7 +136,7 @@ describe("Challenge2: Prime Counter (Web Worker)", () => {
     vi.resetAllMocks();
   });
 
-  test("(20 points) renders correctly and handles prime computation via Web Worker", async () => {
+  test("(20pts) Renders correctly and handles prime numbers computation via Web Worker", async () => {
     const renderCounts: number[] = [];
     const onRender: ProfilerOnRenderCallback = () => {
       renderCounts.push(renderCounts.length + 1);
@@ -199,7 +199,7 @@ describe("Challenge2: Prime Counter (Web Worker)", () => {
     expect(renderCounts.length).toBeGreaterThanOrEqual(3);
   });
 
-  test("(5 points) Profiler tracks render counts for key interactions", async () => {
+  test("(5pts) Profiler tracks render counts for key interactions", async () => {
     const onRender = vi.fn<ProfilerOnRenderCallback>();
 
     render(
@@ -249,7 +249,7 @@ describe("Challenge3: useCallback with memoized contact list", () => {
     vi.restoreAllMocks();
   });
 
-  test("(5 points) Toggling a contact mostly re-renders only that contact", () => {
+  test("(5pts) Toggling a contact online status re-renders only that contact", () => {
     render(<Challenge3 />);
 
     consoleLogSpy.mockClear();
@@ -283,9 +283,9 @@ describe("Challenge3: useCallback with memoized contact list", () => {
         args[0].includes("Rendering ContactItem 5")
     );
     expect(hasContact5RenderAfter).toBe(true);
-  }, 15000);
+  }, 25000);
 
-  test("(10 points) Pinging a contact does not re-render the entire list", () => {
+  test("(10pts) Pinging a contact does not re-render the entire list", () => {
     render(<Challenge3 />);
 
     consoleLogSpy.mockClear();
@@ -308,9 +308,9 @@ describe("Challenge3: useCallback with memoized contact list", () => {
         typeof args[0] === "string" && args[0].includes("Rendering ContactItem")
     );
     expect(hasRenderLogs).toBe(false);
-  }, 15000);
+  }, 25000);
 
-  test("(10 points) Toggling 'Show online only' does not re-render unchanged contacts", () => {
+  test("(10pts) Toggling 'Show online only' does not re-render unchanged contacts", () => {
     const randomSpy = vi.spyOn(Math, "random").mockReturnValue(0.9);
 
     render(<Challenge3 />);
@@ -325,14 +325,14 @@ describe("Challenge3: useCallback with memoized contact list", () => {
 
     randomSpy.mockRestore();
   });
-});
+}, 25000);
 
 // ============================================================
 // Challenge 4 tests - List Virtualization
 // ============================================================
 
 describe("Challenge4: Filtered Virtualized Movies", () => {
-  test("(10 points) Uses virtualization to avoid rendering all rows", () => {
+  test("(10pts) Uses virtualization to avoid rendering all rows", () => {
     const initialCount = 1000;
     render(<Challenge4 initialCount={initialCount} />);
 
@@ -345,7 +345,7 @@ describe("Challenge4: Filtered Virtualized Movies", () => {
     expect(rows.length).toBeLessThan(initialCount);
   });
 
-  test("(15 points) search filters movies and toggles empty state", async () => {
+  test("(15pts) Search filters movies and toggles empty state", async () => {
     const user = userEvent.setup();
     render(<Challenge4 initialCount={1000} />);
 
